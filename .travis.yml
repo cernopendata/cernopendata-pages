@@ -61,6 +61,8 @@ script:
 
 after_success:
   - coveralls
+
+deploy:
   provider: pypi
   user: jirikuncar
   password:

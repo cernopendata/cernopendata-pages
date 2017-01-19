@@ -37,7 +37,7 @@ from flask_babelex import Babel
 from flask_breadcrumbs import Breadcrumbs
 from flask_menu import Menu
 
-# from cernopendata_pages import config
+from cernopendata_pages import config
 from cernopendata_pages.views import blueprint
 
 
@@ -69,7 +69,7 @@ def app(instance_path, static_folder):
         instance_path=instance_path,
         static_folder=static_folder,
     )
-    # app.config.from_object(config)
+    app.config.from_object(config)
     app.config.update(
         TESTING=True,
         BASE_TEMPLATE='cernopendata_pages/base.html',

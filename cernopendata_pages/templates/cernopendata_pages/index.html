@@ -1,10 +1,10 @@
 {%- extends config.BASE_TEMPLATE %}
 
-{% macro experiment_panel(name, description, endpoint) %}
+{% macro experiment_panel(name, description, endpoint, show_link) %}
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="col-md-2">
-        <a href="{{ url_for(endpoint, experiment=name) }}">
+        <a href="{{ url_for(endpoint, experiment=name) if show_link else '#' }}">
           <img src="{{ url_for('static', filename='img/' + name + '.gif') }}"
                 alt="{{ name }}" style="width: 100%;">
         </a>
@@ -14,11 +14,15 @@
       </div>
     </div>
     <div class="panel-footer text-right">
-        <a href="{{ url_for(endpoint, experiment=name) }}"
-            class="btn btn-sm btn-default">
-          {{ _('Explore %(name)s', name=name) }}
-          <i class="fa fa-chevron-right"></i>
-        </a>
+    {%- if show_link %}
+      <a href="{{ url_for(endpoint, experiment=name) }}"
+          class="btn btn-sm btn-default">
+        {{ _('Explore %(name)s', name=name) }}
+        <i class="fa fa-chevron-right"></i>
+      </a>
+    {%- else %}
+      <span class="small text-muted">{{ _('Not yet available') }}</span>
+    {%- endif %}
     </div>
   </div>
 {% endmacro %}
@@ -81,7 +85,7 @@
       <div class="row">
         <div class="col-sm-6 col-xs-12">
           {% for name, description, show_link in config.OPENDATA_EDUCATION %}
-            {{ experiment_panel(name, description, '.education') }}
+            {{ experiment_panel(name, description, '.education', show_link) }}
           {% endfor %}
         </div>
         <div class="col-sm-6 col-xs-12">
@@ -123,8 +127,8 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-6 col-xs-12">
-          {% for name, description, show_link in config.OPENDATA_EDUCATION %}
-            {{ experiment_panel(name, description, '.research') }}
+          {% for name, description, show_link in config.OPENDATA_RESEARCH %}
+            {{ experiment_panel(name, description, '.research', show_link) }}
           {% endfor %}
         </div>
         <div class="col-sm-6 col-xs-12">

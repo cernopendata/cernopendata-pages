@@ -34,5 +34,7 @@ include babel.ini
 include pytest.ini
 prune docs/_build
 recursive-include cernopendata_pages *.html
+recursive-include cernopendata_pages *.jpg
+recursive-include cernopendata_pages *.png
 recursive-include cernopendata_pages *.po *.pot *.mo
 recursive-include tests *.py

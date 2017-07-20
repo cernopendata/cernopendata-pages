@@ -239,17 +239,20 @@ def validation_report(experiment):
 
 def about_menu(*args):
     """Generate menu decorator."""
+
     def decorator(f):
         """Menu decorator."""
         for order, key in enumerate(args):
             def arguments(key):
                 return lambda: {'page': key}
+
             f = register_menu(
                 blueprint, 'main.about.{0}'.format(key),
                 _('%(experiment)s Open Data', experiment=key), order=order + 1,
                 endpoint_arguments_constructor=arguments(key)
             )(f)
         return f
+
     return decorator
 
 
@@ -318,22 +321,6 @@ def collections():
         testimonials=testimonials,
         exp_colls=exp_colls,
         exp_names=exp_names)
-
-
-@blueprint.route('/glossary', methods=['GET', 'POST'])
-@register_menu(blueprint, 'main.about.glossary', _('Glossary'), order=90)
-@register_breadcrumb(blueprint, '.education.glossary', _('Glossary'))
-def glossary():
-    """Display glossary."""
-    filepath = pkg_resources.resource_filename(
-        'cernopendata', 'static/json/glossary.json'
-    )
-    with open(filepath, 'r') as f:
-        glossary = json.load(f)
-
-    return render_template(
-        'cernopendata_pages/glossary.html',
-        glossary=glossary)
 
 
 @blueprint.route('/news')

@@ -239,7 +239,6 @@ def validation_report(experiment):
 
 def about_menu(*args):
     """Generate menu decorator."""
-
     def decorator(f):
         """Menu decorator."""
         for order, key in enumerate(args):

@@ -322,6 +322,13 @@ def collections():
         exp_names=exp_names)
 
 
+@blueprint.route('/terms')
+@blueprint.route('/glossary')
+def glossary():
+    """Display glossary terms."""
+    return render_template('cernopendata/terms.html')
+
+
 @blueprint.route('/news')
 @register_menu(blueprint, 'main.about.news', _('News'), order=91)
 @register_breadcrumb(blueprint, '.news', 'News', dynamic_list_constructor=(
